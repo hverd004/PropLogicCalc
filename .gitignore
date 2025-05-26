@@ -70,3 +70,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+ProjectSettings/wit.config
+Assets/VoiceWork/SDKVoiceFile.asset
+Assets/Oculus/Voice/Resources/ConduitManifest-4a9958a5-b61b-4bb9-be44-1401ef5ac42f.json
