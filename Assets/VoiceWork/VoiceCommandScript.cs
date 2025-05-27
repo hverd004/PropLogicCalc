@@ -98,4 +98,7 @@ public class VoiceCommandScript : MonoBehaviour
     private void AddQ() => fim.AddToFormula("Q");
     private void AddR() => fim.AddToFormula("R");
     private void AddS() => fim.AddToFormula("S");
+    private void SolveFormula() => fim.SolveFormula();
+    private void ClearFormula() => fim.DeleteAllInput();
+    private void DeleteFormula() => fim.DeleteLastInput();
 }
