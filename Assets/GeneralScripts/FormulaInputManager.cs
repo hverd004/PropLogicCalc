@@ -114,6 +114,7 @@ public class FormulaInputManager : MonoBehaviour
         }
     }
 
+    //Grid Version
     private void BuildTruthTableUI(List<string> headers, List<List<string>> rows)
     {
         ClearTruthTableUI();
@@ -146,4 +147,96 @@ public class FormulaInputManager : MonoBehaviour
             }
         }
     }
+    //resize version NOT FUNCTIONAL
+    /*private void BuildTruthTableUI(List<string> headers, List<List<string>> rows)
+    {
+        ClearTruthTableUI();
+
+        int columnCount = headers.Count;
+
+        // Step 1: Measure max width per column
+        float[] columnWidths = new float[columnCount];
+
+        // Create a temporary text object to measure widths
+        var tempCell = Instantiate(cellPrefab);
+        var measureTMP = tempCell.GetComponent<TextMeshProUGUI>();
+
+        // Measure header widths
+        for (int i = 0; i < headers.Count; i++)
+        {
+            measureTMP.text = headers[i];
+            LayoutRebuilder.ForceRebuildLayoutImmediate(measureTMP.rectTransform);
+            columnWidths[i] = Mathf.Max(columnWidths[i], measureTMP.preferredWidth);
+        }
+
+        // Measure data cell widths
+        for (int r = 0; r < rows.Count; r++)
+        {
+            for (int c = 0; c < rows[r].Count; c++)
+            {
+                measureTMP.text = rows[r][c];
+                LayoutRebuilder.ForceRebuildLayoutImmediate(measureTMP.rectTransform);
+                columnWidths[c] = Mathf.Max(columnWidths[c], measureTMP.preferredWidth);
+            }
+        }
+
+        Destroy(tempCell); // Clean up temp object
+
+        // Step 2: Create header row
+        var headerRow = new GameObject("HeaderRow", typeof(RectTransform), typeof(HorizontalLayoutGroup));
+        headerRow.transform.SetParent(tableParent, false);
+
+        var headerLayout = headerRow.GetComponent<HorizontalLayoutGroup>();
+        headerLayout.childControlWidth = false;
+        headerLayout.childControlHeight = true;
+        headerLayout.childForceExpandWidth = false;
+        headerLayout.childForceExpandHeight = false;
+        headerLayout.spacing = 20;
+
+        for (int i = 0; i < headers.Count; i++)
+        {
+            var cell = Instantiate(cellPrefab, headerRow.transform);
+            var tmp = cell.GetComponent<TextMeshProUGUI>();
+            tmp.text = headers[i];
+            tmp.fontStyle = FontStyles.Bold;
+            tmp.color = Color.white;
+
+            // Apply measured width
+            var layoutElement = cell.GetComponent<LayoutElement>() ?? cell.gameObject.AddComponent<LayoutElement>();
+            layoutElement.preferredWidth = columnWidths[i];
+        }
+
+        // Step 3: Create data rows
+        foreach (var row in rows)
+        {
+            var rowGO = new GameObject("Row", typeof(RectTransform), typeof(HorizontalLayoutGroup));
+            rowGO.transform.SetParent(tableParent, false);
+
+            var rowLayout = rowGO.GetComponent<HorizontalLayoutGroup>();
+            rowLayout.childControlWidth = false;
+            rowLayout.childControlHeight = true;
+            rowLayout.childForceExpandWidth = false;
+            rowLayout.childForceExpandHeight = false;
+            rowLayout.spacing = 20;
+
+            for (int i = 0; i < row.Count; i++)
+            {
+                var cell = Instantiate(cellPrefab, rowGO.transform);
+                var tmp = cell.GetComponent<TextMeshProUGUI>();
+                tmp.text = row[i];
+
+                tmp.color = row[i] switch
+                {
+                    "T" => Color.green,
+                    "F" => Color.red,
+                    _ => Color.gray
+                };
+
+                // Apply measured width
+                var layoutElement = cell.GetComponent<LayoutElement>() ?? cell.gameObject.AddComponent<LayoutElement>();
+                layoutElement.preferredWidth = columnWidths[i];
+            }
+        }
+    }*/
+
 }

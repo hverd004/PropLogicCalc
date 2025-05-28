@@ -75,7 +75,28 @@ public class PropositionalLogicSolver : MonoBehaviour
 
     private bool ParseExpressionWithLabel(out string label)
     {
-        return ParseImplicationWithLabel(out label);
+        return ParseEquivalenceWithLabel(out label);
+    }
+
+    private bool ParseEquivalenceWithLabel(out string label)
+    {
+        bool left = ParseImplicationWithLabel(out string leftLabel);
+        label = leftLabel;
+
+        while (Match("<->"))
+        {
+            bool right = ParseImplicationWithLabel(out string rightLabel);
+            bool result = left == right;
+
+            label = $"({leftLabel}↔{rightLabel})";
+            AddSubexpression(label, result);
+
+            left = result;
+            leftLabel = label;
+        }
+
+        label = leftLabel;
+        return left;
     }
 
     private bool ParseImplicationWithLabel(out string label)
